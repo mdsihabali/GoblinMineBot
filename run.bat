@@ -1,5 +1,5 @@
 @echo off
-title GoblinMineBotPro
+title GoblinMineBot
 if not exist venv (
     echo Creating virtual environment...
     python -m venv venv

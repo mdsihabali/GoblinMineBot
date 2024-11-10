@@ -1,7 +1,7 @@
 version: '1'
 services:
   bot:
-    container_name: 'GoblinMineBotPro'
+    container_name: 'GoblinMineBot'
     build:
       context: .
     stop_signal: SIGINT
