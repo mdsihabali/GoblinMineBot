@@ -20,18 +20,8 @@ class Settings(BaseSettings):
     EXPEDITIONS: bool = False
     CUSTOM_EXPEDITION_COST: int = 10000
     MIN_EXP_DURATION: int = 360
-    AUTO_TASK: bool = True
     JOIN_TG_CHANNELS: bool = False
-    NIGHT_SLEEP: bool = True
-    NIGHT_SLEEP_START_TIME: list[int] = [1, 2]
-    NIGHT_SLEEP_END_TIME: list[int] = [7, 9]
     REF_ID: str = '7253650410'
-    DISABLED_TASKS: list[str] = [
-        'Пригласить 10 друзей',
-        'Пригласить 5 друзей',
-        'Пригласить друга',
-        'Поставь реакцию на пост'
-    ]
 
 
 settings = Settings()
