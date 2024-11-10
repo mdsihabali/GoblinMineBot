@@ -1,0 +1,41 @@
+from enum import Enum
+
+
+class Query(str, Enum):
+    Login = "mutation login($input: LoginInput!) {\n  login(input: $input) {\n    status\n    token\n    user {\n      id\n      first_name\n      language_code\n      last_name\n      username\n      __typename\n    }\n    __typename\n  }\n}"
+    Worlds = "query worlds {\n  worlds {\n    active\n    icon\n    income_day\n    name\n    id\n    currency {\n      ...CURRENCY_FRAGMENT\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment CURRENCY_FRAGMENT on Currency {\n  id\n  amount\n  coefficient\n  icon\n  name\n  __typename\n}"
+    MinesAndCheckTasksCompleted = "query minesAndCheckTasksCompleted($worldId: Int!) {\n  mines(worldId: $worldId) {\n    ...MINE_FRAGMENT\n    __typename\n  }\n  check_tasks_completed(worldId: $worldId)\n}\n\nfragment MINE_FRAGMENT on MineFool {\n  deposit_day\n  goblin_image\n  id\n  image\n  income_per_day\n  level\n  miner_amount\n  name\n  price\n  user_miners_count\n  volume\n  userMine {\n    auto\n    cart_level\n    deposit_day\n    deposit_day_default\n    extracted_amount\n    extracted_percent\n    id\n    income_hour\n    next_volume\n    updateIn\n    volume\n    updated_at\n    total_day\n    __typename\n  }\n  currency {\n    ...CURRENCY_FRAGMENT\n    __typename\n  }\n  miningCurrency {\n    ...CURRENCY_FRAGMENT\n    __typename\n  }\n  __typename\n}\n\nfragment CURRENCY_FRAGMENT on Currency {\n  id\n  amount\n  coefficient\n  icon\n  name\n  __typename\n}"
+    PickUp = "mutation pickUp($input: PickUpMineInput!) {\n  pickUp(input: $input) {\n    total\n    __typename\n  }\n}"
+    ExpeditionsAndUserExpeditions = "query ExpeditionsAndUserExpeditions($worldId: Int!) {\n  expeditions(worldId: $worldId) {\n    ...EXPEDITIONS_FRAGMENT\n    __typename\n  }\n  userExpeditions(worldId: $worldId) {\n    ...USER_EXPEDITIONS_FRAGMENT\n    __typename\n  }\n}\n\nfragment EXPEDITIONS_FRAGMENT on Expedition {\n  duration\n  duration_human\n  id\n  image\n  max\n  min\n  name\n  userExpedition\n  userExpeditionAmount\n  userExpeditionDuration\n  currency {\n    ...CURRENCY_FRAGMENT\n    __typename\n  }\n  expeditionProfit {\n    amount\n    percent\n    currency {\n      ...CURRENCY_FRAGMENT\n      __typename\n    }\n    __typename\n  }\n  __typename\n}\n\nfragment CURRENCY_FRAGMENT on Currency {\n  id\n  amount\n  coefficient\n  icon\n  name\n  __typename\n}\n\nfragment USER_EXPEDITIONS_FRAGMENT on UserExpeditions {\n  amount\n  created_at\n  status\n  name\n  image\n  id\n  price\n  currency {\n    ...CURRENCY_FRAGMENT\n    __typename\n  }\n  __typename\n}"
+    MineAndMiners = "query mineAndMiners($mineId: Int!) {\n  mine(mineId: $mineId) {\n    ...MINE_FRAGMENT\n    __typename\n  }\n  miners(mineId: $mineId) {\n    ...MINERS_FRAGMENT\n    __typename\n  }\n}\n\nfragment MINE_FRAGMENT on MineFool {\n  deposit_day\n  goblin_image\n  id\n  image\n  income_per_day\n  level\n  miner_amount\n  name\n  price\n  user_miners_count\n  volume\n  userMine {\n    auto\n    cart_level\n    deposit_day\n    deposit_day_default\n    extracted_amount\n    extracted_percent\n    id\n    income_hour\n    next_volume\n    updateIn\n    volume\n    updated_at\n    total_day\n    __typename\n  }\n  currency {\n    ...CURRENCY_FRAGMENT\n    __typename\n  }\n  miningCurrency {\n    ...CURRENCY_FRAGMENT\n    __typename\n  }\n  __typename\n}\n\nfragment CURRENCY_FRAGMENT on Currency {\n  id\n  amount\n  coefficient\n  icon\n  name\n  __typename\n}\n\nfragment MINERS_FRAGMENT on Miners {\n  available\n  id\n  level\n  name\n  price\n  currency {\n    ...CURRENCY_FRAGMENT\n    __typename\n  }\n  minerLevel {\n    available\n    disabled\n    existInventoryLevel\n    id\n    image\n    income_hour\n    level\n    name\n    price\n    inventoryLevel {\n      level\n      name\n      __typename\n    }\n    currency {\n      ...CURRENCY_FRAGMENT\n      __typename\n    }\n    __typename\n  }\n  __typename\n}"
+    MineAndUpgradeMine = "query mineAndUpgradeMine($mineId: Int!) {\n  mine(mineId: $mineId) {\n    ...MINE_FRAGMENT\n    __typename\n  }\n  upgradeMine(mineId: $mineId) {\n    ...UPGRADE_MINE_FRAGMENT\n    __typename\n  }\n}\n\nfragment MINE_FRAGMENT on MineFool {\n  deposit_day\n  goblin_image\n  id\n  image\n  income_per_day\n  level\n  miner_amount\n  name\n  price\n  user_miners_count\n  volume\n  userMine {\n    auto\n    cart_level\n    deposit_day\n    deposit_day_default\n    extracted_amount\n    extracted_percent\n    id\n    income_hour\n    next_volume\n    updateIn\n    volume\n    updated_at\n    total_day\n    __typename\n  }\n  currency {\n    ...CURRENCY_FRAGMENT\n    __typename\n  }\n  miningCurrency {\n    ...CURRENCY_FRAGMENT\n    __typename\n  }\n  __typename\n}\n\nfragment CURRENCY_FRAGMENT on Currency {\n  id\n  amount\n  coefficient\n  icon\n  name\n  __typename\n}\n\nfragment UPGRADE_MINE_FRAGMENT on upgradeMine {\n  id\n  image\n  level\n  name\n  price\n  disabled\n  deposit_day\n  currency {\n    ...CURRENCY_FRAGMENT\n    __typename\n  }\n  need_inventory {\n    level\n    name\n    __typename\n  }\n  __typename\n}"
+    Inventory = "query inventory($mineId: Int!) {\n  inventory(mineId: $mineId) {\n    disabled\n    id\n    image\n    income_hour\n    level\n    name\n    price\n    inventory_income_hour\n    currency {\n      ...CURRENCY_FRAGMENT\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment CURRENCY_FRAGMENT on Currency {\n  id\n  amount\n  coefficient\n  icon\n  name\n  __typename\n}"
+    Carts = "query carts($mineId: Int!, $userMineId: Int!) {\n  carts(mineId: $mineId, userMineId: $userMineId) {\n    auto\n    available\n    id\n    image\n    level\n    name\n    price\n    volume\n    currency {\n      ...CURRENCY_FRAGMENT\n      __typename\n    }\n    miningCurrency {\n      ...CURRENCY_FRAGMENT\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment CURRENCY_FRAGMENT on Currency {\n  id\n  amount\n  coefficient\n  icon\n  name\n  __typename\n}"
+    BuyMine = "mutation buyMine($input: BuyMineInput!) {\n  buyMine(input: $input) {\n    message\n    status\n    __typename\n  }\n}"
+    BuyMiner = "mutation buyMiner($input: BuyMinerInput!) {\n  buyMiner(input: $input) {\n    message\n    status\n    __typename\n  }\n}"
+    BuyInventory = "mutation buyInventory($id: Int!) {\n  buyInventory(id: $id) {\n    message\n    volume\n    status\n    __typename\n  }\n}"
+    BuyUpgradeMine = "mutation buyUpgradeMine($id: Int!) {\n  buyUpgradeMine(id: $id) {\n    message\n    status\n    volume\n    __typename\n  }\n}"
+    BuyMinerLevel = "mutation buyMinerLevel($input: BuyMinerLevelInput!) {\n  buyMinerLevel(input: $input) {\n    balance\n    message\n    status\n    __typename\n  }\n}"
+    UpdateCart = "mutation updateCart($id: Int!) {\n  updateCart(id: $id) {\n    volume\n    status\n    message\n    __typename\n  }\n}"
+    Expedition = "query expedition($Id: Int!) {\n  expedition(Id: $Id) {\n    ...EXPEDITIONS_FRAGMENT\n    __typename\n  }\n}\n\nfragment EXPEDITIONS_FRAGMENT on Expedition {\n  duration\n  duration_human\n  id\n  image\n  max\n  min\n  name\n  userExpedition\n  userExpeditionAmount\n  userExpeditionDuration\n  currency {\n    ...CURRENCY_FRAGMENT\n    __typename\n  }\n  expeditionProfit {\n    amount\n    percent\n    currency {\n      ...CURRENCY_FRAGMENT\n      __typename\n    }\n    __typename\n  }\n  __typename\n}\n\nfragment CURRENCY_FRAGMENT on Currency {\n  id\n  amount\n  coefficient\n  icon\n  name\n  __typename\n}"
+    BuyExpedition = "mutation buyExpedition($id: Int!, $amount: Int!) {\n  buyExpedition(id: $id, amount: $amount) {\n    message\n    status\n    __typename\n  }\n}"
+
+
+class OperationName(str, Enum):
+    Login = "login"
+    Worlds = "worlds"
+    MinesAndCheckTasksCompleted = "minesAndCheckTasksCompleted"
+    PickUp = "pickUp"
+    ExpeditionsAndUserExpeditions = "ExpeditionsAndUserExpeditions"
+    MineAndMiners = "mineAndMiners"
+    MineAndUpgradeMine = "mineAndUpgradeMine"
+    Inventory = "inventory"
+    Carts = "carts"
+    BuyMine = "buyMine"
+    BuyInventory = "buyInventory"
+    BuyMiner = "buyMiner"
+    BuyUpgradeMine = "buyUpgradeMine"
+    BuyMinerLevel = "buyMinerLevel"
+    UpdateCart = "updateCart"
+    Expedition = "expedition"
+    BuyExpedition = "buyExpedition"
