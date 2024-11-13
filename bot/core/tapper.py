@@ -237,7 +237,7 @@ class Tapper:
             response_json = response.json()
             inventory = response_json['data']['inventory']
             available_items = [item for item in inventory if
-                               not item['disabled'] or item.get('price', None) is not None]
+                               not item['disabled'] and item.get('price', None) is not None]
             sorted_items = sorted(available_items, key=lambda x: x['income_hour'] / x['price'], reverse=True)
             for item in sorted_items:
                 if item['price'] > self.balance:
@@ -291,7 +291,7 @@ class Tapper:
             response.raise_for_status()
             response_json = response.json()
             mine_upgrades = response_json['data']['upgradeMine']
-            active_upgrades = [u for u in mine_upgrades if not u['disabled'] or u.get('price', None) is not None]
+            active_upgrades = [u for u in mine_upgrades if not u['disabled'] and u.get('price', None) is not None]
             sorted_items = sorted(active_upgrades, key=lambda x: x['deposit_day'] / x['price'], reverse=True)
             for item in sorted_items:
                 if item['price'] > self.balance:
