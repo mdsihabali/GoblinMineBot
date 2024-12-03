@@ -1,7 +1,7 @@
 headers = {
     'Accept': '*/*',
     'Accept-Language': 'ru',
-    'App-B': 'c8fc7cbd-0892-4d98-8022-082c069cd89c',
+    'App-B': 'f4ed2c52-8d92-4cf6-99cb-07444b065b23',
     'Accept-Encoding': 'gzip, deflate, br, zstd',
     'Content-Type': 'application/json',
     'Connection': 'keep-alive',
